@@ -1,0 +1,12 @@
+sensor energinet spotpris:
+  - platform: command_line
+    name: Energinet spotpris DK1
+    unit_of_measurement: "kr/kWh"
+    command: "curl -X 'GET' \ 'https://api.energidataservice.dk/dataset/elspotprices?start={{(now()-timedelta(days=1)).strftime('%Y-%m-%d')}}&end={{(now()+timedelta(days=2)).strftime('%Y-%m-%d')}}&filter=%7B%22PriceArea%22%3A%20%22DK1%22%7D' \ -H 'accept: */*'"
+    scan_interval:
+        hours: 2
+    command_timeout: 30
+    value_template: '{% if value_json is not none %}OK - Rows: {{value_json["total"]}}{% else %}Unavailable{% endif %}'
+    json_attributes:
+      - total
+      - records
