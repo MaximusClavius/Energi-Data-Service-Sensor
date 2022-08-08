@@ -6,4 +6,5 @@ Dog kan man lave samme i HA med en enkel og simpel sensor, som selv indsætte st
 
 Diagramet bruger grøn, gul og rød farve for at markere forskelle pris, hvor grøn er lavest og rød højest. Beskrevet diagram ligner dette:
 
-![image](https://user-images.githubusercontent.com/103023823/183290946-112ce31c-cee0-4904-8b8a-543f35cd5eb8.png)
+![image](https://user-images.githubusercontent.com/103023823/183419890-0737c639-06cf-4959-8c0c-ecc75de36407.png)
+
