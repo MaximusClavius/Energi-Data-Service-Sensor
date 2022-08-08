@@ -10,3 +10,4 @@ sensor energinet spotpris:
     json_attributes:
       - total
       - records
+      
