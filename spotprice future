@@ -1,0 +1,9 @@
+Hvis du skal bruge strøm, så er de billigste timer:
+{% set subset = (state_attr('sensor.energinet_spotpris_dk1', 'records') | sort(attribute='SpotPriceDKK')) %} 
+{% set now = now().timestamp() %}
+{% for dict_item in subset %}
+  {% set datetime = strptime(dict_item['HourDK'], "%Y-%m-%dT%H:%M:%S").timestamp() %}
+  {% if datetime > now %}
+      {% set count = 1 %} <ha-icon icon="mdi:clock-check"></ha-icon> Tidspunkt: {{ as_timestamp(dict_item.HourDK) | timestamp_custom('%d-%m-%Y %H:%M') }}, Pris: {{ '%.2f' | format(dict_item.SpotPriceDKK | float / 1000 * 1.25) }}
+  {% endif %}
+{% endfor %}
