@@ -13,6 +13,7 @@ PS
 Viser diagrammet "Loading" i stedet for data fra sensor, så er formentlig noget gal med formattering af koden eller ikke komplet kopiering. Vælg ikon "Copy raw content" på Github, og brug Ctrl+a for at markere al tekst og indsæt/erstat med Ctrl+v...
 
 Ønsker du en mere tekstuel fremstilling, som:
+
 ![image](https://user-images.githubusercontent.com/103023823/189044528-a292ecb4-1f6f-4b54-ba6c-babd7aaa130c.png)
 
-Tilføj et Markdown-kortkonfiguration, og smid koden ind i 
+Tilføj et Markdown-kortkonfiguration, og smid koden ind i fra linked "spotprice in near future". Ønsker du flere eller mindre end 3, så skal du trylle med ns.count.
