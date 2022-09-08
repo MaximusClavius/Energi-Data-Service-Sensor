@@ -14,6 +14,6 @@ Viser diagrammet "Loading" i stedet for data fra sensor, så er formentlig noget
 
 Ønsker du en mere tekstuel fremstilling, som:
 
-![image](https://user-images.githubusercontent.com/103023823/189044528-a292ecb4-1f6f-4b54-ba6c-babd7aaa130c.png)
+![image](https://user-images.githubusercontent.com/103023823/189045731-00e8d17b-dbb0-4f1b-ad4d-960e3adfaa0e.png)
 
 Tilføj et Markdown-kortkonfiguration, og smid koden ind i fra https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/spotprice%20in%20near%20future. Ønsker du flere eller mindre end 3 priser, så skal du trylle med ns.count.
