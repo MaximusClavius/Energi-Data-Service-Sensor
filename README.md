@@ -17,7 +17,7 @@ Ad 2:
 
 ![image](https://user-images.githubusercontent.com/103023823/183419890-0737c639-06cf-4959-8c0c-ecc75de36407.png)
 
-![image](https://user-images.githubusercontent.com/103023823/189534716-d04b40f6-9ebd-40ea-a05a-043c6ef8407e.png)
+![image](https://user-images.githubusercontent.com/103023823/189534752-a431daf2-fab4-454d-b315-f1037b5b599a.png)
 
 PS
 Viser diagrammet "Loading" i stedet for data fra sensor, så er formentlig noget gal med formattering af koden eller ikke komplet kopiering. Vælg ikon "Copy raw content" på Github, og brug Ctrl+a for at markere al tekst og indsæt/erstat med Ctrl+v...
