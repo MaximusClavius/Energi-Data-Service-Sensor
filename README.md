@@ -16,4 +16,7 @@ Viser diagrammet "Loading" i stedet for data fra sensor, så er formentlig noget
 
 ![image](https://user-images.githubusercontent.com/103023823/189045731-00e8d17b-dbb0-4f1b-ad4d-960e3adfaa0e.png)
 
-Tilføj et Markdown-kortkonfiguration, og smid koden ind i fra https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/spotprice%20in%20near%20future. Ønsker du flere eller mindre end 3 priser, så skal du trylle med ns.count.
+Tilføj et Markdown-kortkonfiguration, og smid koden ind i fra https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/spotprice%20in%20near%20future. Ønsker du flere eller mindre end 3 priser, så skal du trylle med "ns.count < 3".
+Afgifter og tariffer skal tilføjes her i stedet for 0.0:
+{%- set tarif = 0.0 %}
+{%- set afgift = 0.0 %}
