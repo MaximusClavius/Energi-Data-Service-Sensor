@@ -6,7 +6,8 @@ Dog kan man lave samme i HA med en enkel og simpel sensor, som selv indsætte st
 
 TO-DO:
 1) Tilføj sensor
-2) Tilføj kort
+2) Tilføj kort (Søjlediagram)
+3) Tilføj kort (De 3 billigste priser i nærmeste fremtid)
 
 Ad 1:
 Hele koden til sensor smides ind i configuration.yaml eller bruger du separat fil til sensorer, så alle linjer undtagende den første (som starter med sensor). Eventuel "TJEK KONFIGURATION" og derefter "GENSTART"! Alternativt kan man nøjes ned "GENINDLÆS KOMMANDOLINJE ENTITETER", så dette er aktiveret.
@@ -19,6 +20,7 @@ Ad 2:
 PS
 Viser diagrammet "Loading" i stedet for data fra sensor, så er formentlig noget gal med formattering af koden eller ikke komplet kopiering. Vælg ikon "Copy raw content" på Github, og brug Ctrl+a for at markere al tekst og indsæt/erstat med Ctrl+v...
 
+Ad 3:
 Ønsker du en mere tekstuel fremstilling, som:
 
 ![image](https://user-images.githubusercontent.com/103023823/189045731-00e8d17b-dbb0-4f1b-ad4d-960e3adfaa0e.png)
