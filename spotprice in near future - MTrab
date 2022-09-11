@@ -1,11 +1,11 @@
 {% if (state_attr('sensor.energi_data_service', 'tomorrow_valid')) %}
-{% set subset = ((state_attr('sensor.energi_data_service', 'raw_today') + state_attr('sensor.energi_data_service', 'raw_tomorrow' )) | sort(attribute='price')) %}
+  {% set subset = ((state_attr('sensor.energi_data_service', 'raw_today') + state_attr('sensor.energi_data_service', 'raw_tomorrow' )) | sort(attribute='price')) %}
 {% else %}
-{% set subset = (state_attr('sensor.energi_data_service', 'raw_today') | sort(attribute='price')) %}
+  {% set subset = (state_attr('sensor.energi_data_service', 'raw_today') | sort(attribute='price')) %}
 {% endif %}
 {% set ns = namespace(count = 0) %}
 {% set now = now().timestamp() %}
-Hvis du skal bruge strøm, så er de billigste timer:
+De billigste timer i nærmeste fremtid:
 {% for dict_item in subset %}
   {% set datetime = strptime(dict_item['hour'], "%Y-%m-%dT%H:%M:%S").timestamp() %}
   {% if datetime > now and ns.count < 3 %}
