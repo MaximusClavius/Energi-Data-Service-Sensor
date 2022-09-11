@@ -1,6 +1,6 @@
 # Energi-Data-Service-Sensor
 
-Der findes en løsning lavet af Marlene Trab i Python til installation i HACS, https://github.com/MTrab/energidataservice
+Der findes en løsning lavet af Malene Trab i Python til installation i HACS, https://github.com/MTrab/energidataservice
 
 Dog kan man lave samme i HA med en enkel og simpel sensor, som selv indsætte start- og slutdato. Desuden kan man selv bestemme hvor tit der skal scanne efter nye data, samt at man kan udvide historikken ved at ændre days i start-parameter i cURL'en. Ønsker man data fra andre områder, så skal PriceArea ændres fra DK1 til eksempelvis DK2. Ønsker man flere så giv lyd, så skal jeg vise hvordan man kØRL'er sådan en.
 
