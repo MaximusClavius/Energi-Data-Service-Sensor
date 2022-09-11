@@ -16,7 +16,7 @@ experimental:
   color_threshold: true
 series:
   - entity: sensor.energinet_spotpris_dk1
-    type: line
+    type: column
     stroke_width: 2
     opacity: 0.7
     data_generator: |
