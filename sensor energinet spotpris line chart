@@ -2,7 +2,7 @@ type: custom:apexcharts-card
 apex_config:
   chart:
     height: 400px
-graph_span: 3d1h40m
+graph_span: 3d2h04m
 span:
   start: day
   offset: '-1d'
