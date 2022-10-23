@@ -2,7 +2,7 @@ type: custom:apexcharts-card
 apex_config:
   chart:
     height: 400px
-graph_span: 2d
+graph_span: 2d50m
 span:
   start: day
 now:
