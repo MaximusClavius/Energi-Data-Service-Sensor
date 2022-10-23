@@ -33,3 +33,5 @@ series:
         color: orange
       - value: 4
         color: red
+yaxis:
+  - min: 0
