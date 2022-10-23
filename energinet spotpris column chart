@@ -2,22 +2,20 @@ type: custom:apexcharts-card
 apex_config:
   chart:
     height: 400px
-graph_span: 3d2h04m
+graph_span: 2d50m
 span:
   start: day
-  offset: '-1d'
 now:
   show: true
   label: Nu
 header:
-  title: Prognose på spotpriser (kr/kWh)
+  title: Spotpriser (kr/kWh)
   show: true
 experimental:
   color_threshold: true
 series:
   - entity: sensor.energinet_spotpris_dk1
-    type: line
-    stroke_width: 2
+    type: column
     opacity: 0.7
     data_generator: |
       const tarif = 0.0;
@@ -29,11 +27,11 @@ series:
     color_threshold:
       - value: 0
         color: green
-      - value: 1
+      - value: 2
         color: yellow
-      - value: 1.9
+      - value: 3
         color: orange
-      - value: 2.8
+      - value: 4
         color: red
 yaxis:
   - min: 0
