@@ -2,7 +2,7 @@ type: custom:apexcharts-card
 apex_config:
   chart:
     height: 400px
-graph_span: 2d50m
+graph_span: 2d
 span:
   start: day
 now:
@@ -19,20 +19,26 @@ series:
     opacity: 0.7
     float_precision: 2
     data_generator: |
-      const tarif = 1.20289;
-      const abonnement = 0.076;
+      const tariflav = 1.20289;
+      const tarifspids = 1.73479;
+      const afgift = 0.076;
+      var tarif, hour;
       var data = entity.attributes.records.map((start, index) => {
-        return [new Date(start["HourDK"]).getTime(), (entity.attributes.records[index]["SpotPriceDKK"] / 1000 + tarif + abonnement) * 1.25];
+        hour = parseInt(start["HourDK"].slice(11, 13));
+        tarif = tariflav;
+        if (hour >= 17 && hour < 20)
+            tarif = tarifspids;
+        return [new Date(start["HourDK"]).getTime(), (entity.attributes.records[index]["SpotPriceDKK"] / 1000 + tarif + afgift) * 1.25];
       });
       return data;
     color_threshold:
       - value: 0
-        color: green
+        color: var(--info-color)
       - value: 2
-        color: yellow
-      - value: 3
-        color: orange
-      - value: 4
-        color: red
+        color: var(--success-color)
+      - value: 3.5
+        color: var(--warning-color)
+      - value: 5
+        color: var(--error-color)
 yaxis:
   - min: 0
