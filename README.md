@@ -24,10 +24,16 @@ PS
 Viser diagrammet "Loading" i stedet for data fra sensor, så er formentlig noget gal med formattering af koden eller ikke komplet kopiering. Vælg ikon "Copy raw content" på Github, og brug Ctrl+a for at markere al tekst og indsæt/erstat med Ctrl+v...
 
 Ad 3:
+Den aktuelle pris med markering af prisintervaller i forskellige farver.
+
+![image](https://user-images.githubusercontent.com/103023823/206850966-839c8d47-3994-4e18-aadd-fbddf7ee01e8.png)
+
+Der skal lave en sensor til kortet, og det er en template, som:
+Tilføj et Gauge-kortkonfiguration, og og smid yaml/koden ind i fra https
 
 Ad 4:
 Ønsker du en mere tekstuel fremstilling og indeholdende tarif og abonnement, som:
 
 ![image](https://user-images.githubusercontent.com/103023823/189045731-00e8d17b-dbb0-4f1b-ad4d-960e3adfaa0e.png)
 
-Tilføj et Markdown-kortkonfiguration, og smid koden ind i fra https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/spotprice%20in%20near%20future. Ønsker du flere eller mindre end 3 priser, så skal du trylle med "ns.count < 3".
+Tilføj et Markdown-kortkonfiguration, og smid yaml/koden ind i fra https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/spotprice%20in%20near%20future. Ønsker du flere eller mindre end 3 priser, så skal du trylle med "ns.count < 3".
