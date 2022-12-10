@@ -43,18 +43,18 @@
               "eltillaeg_ellev": 0.00,
               "abonnement_ellev": 0.00
         } %}
-        {% set abonnement = s.abonnement_net + s.spotpristillaeg + s.eltillaeg_ellev + s.abonnement_ellev %}
+        {% set subscription = s.abonnement_net + s.spotpristillaeg + s.eltillaeg_ellev + s.abonnement_ellev %}
         {% if now().hour >=18 and now().hour <20 %}
-          {% set tarif = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_spidslast %}
+          {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_spidslast %}
         {% else %}
-          {% set tarif = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.elafgift_fuld + s.nettarif_c_time_lavlast %}
+          {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.elafgift_fuld + s.nettarif_c_time_lavlast %}
         {% endif %}
         {% set subset = states.sensor.energinet_spotpris_dk1.attributes.records %} 
         {% set now = now().strftime("%Y-%m-%d %H") | as_timestamp  %}
         {% for dict_item in subset %}
           {% set datetime = strptime(dict_item['HourDK'], "%Y-%m-%dT%H:%M:%S").timestamp() %}
           {% if datetime == now %}
-            {{ '%.2f' | format(((dict_item.SpotPriceDKK / 1000 + tarif + abonnement) * 1.25) | float) }}
+            {{ '%.2f' | format(((dict_item.SpotPriceDKK / 1000 + tariff + subscription) * 1.25) | float) }}
           {% endif -%}
         {% endfor %}
       icon_template: mdi:cash
