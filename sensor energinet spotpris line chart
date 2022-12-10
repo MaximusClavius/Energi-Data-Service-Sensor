@@ -19,6 +19,7 @@ series:
     type: line
     stroke_width: 2
     opacity: 0.7
+    float_precision: 2
     data_generator: |
       const tarif = 1.20289;
       const abonnement = 0.076;
