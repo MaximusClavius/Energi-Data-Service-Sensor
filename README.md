@@ -7,13 +7,14 @@ Dog kan man lave samme i HA med en enkel og simpel sensor, som selv indsætte st
 TO-DO:
 1) Tilføj sensor
 2) Tilføj kort (Søjlediagram)
-3) Tilføj kort (De 3 billigste priser i nærmeste fremtid)
+3) Tilføj aktuel pris som gauge-kort
+4) Tilføj kort (De 3 billigste priser i nærmeste fremtid)
 
 Ad 1:
 Hele koden til sensor smides ind i configuration.yaml eller bruger du separat fil til sensorer, så alle linjer undtagende den første (som starter med sensor). Eventuel "TJEK KONFIGURATION" og derefter "GENSTART"! Alternativt kan man nøjes ned "GENINDLÆS KOMMANDOLINJE ENTITETER", hvis denne funktionalitet er aktiveret.
 
 Ad 2:
-"Tilføj kort" til din brugergrænseflade/dashboard, og vælg apexcharts-card. Så kopier du koden ind vinduet til venstre, så skulle diagrammet komme til syne i højre vindue. Priserne er med moms, men mangler tariffer og afgifter som kan indsættes i "const tarif = 0.0;" og "const afgift = 0.0;" i stedet for 0.0. Diagramet bruger grøn, gul og rød farve for at markere forskelle pris, hvor grøn er lavest og rød højest. Er man mere til et linjediagram, så skal linjen "type: column" ændres til "type: line". Beskrevet diagram ligner dette:
+"Tilføj kort" til din brugergrænseflade/dashboard, og vælg apexcharts-card. Så kopier du koden ind vinduet til venstre, så skulle diagrammet komme til syne i højre vindue. Priserne er med tarif, abonnement og moms. Diagramet bruger grøn, gul og rød farve for at markere forskelle pris, hvor grøn er lavest og rød højest. Er man mere til et linjediagram, så skal linjen "type: column" ændres til "type: line". Beskrevet diagram ligner dette:
 
 ![image](https://user-images.githubusercontent.com/103023823/183419890-0737c639-06cf-4959-8c0c-ecc75de36407.png)
 
@@ -23,6 +24,8 @@ PS
 Viser diagrammet "Loading" i stedet for data fra sensor, så er formentlig noget gal med formattering af koden eller ikke komplet kopiering. Vælg ikon "Copy raw content" på Github, og brug Ctrl+a for at markere al tekst og indsæt/erstat med Ctrl+v...
 
 Ad 3:
+
+Ad 4:
 Ønsker du en mere tekstuel fremstilling og indeholdende tarif og abonnement, som:
 
 ![image](https://user-images.githubusercontent.com/103023823/189045731-00e8d17b-dbb0-4f1b-ad4d-960e3adfaa0e.png)
