@@ -11,7 +11,7 @@ TO-DO:
 4) Tilføj kort (De 3 billigste priser i nærmeste fremtid)
 
 Ad 1:
-Hele koden til sensor smides ind i configuration.yaml eller bruger du separat fil til sensorer, så alle linjer undtagende den første (som starter med sensor). Eventuel "TJEK KONFIGURATION" og derefter "GENSTART"! Alternativt kan man nøjes ned "GENINDLÆS KOMMANDOLINJE ENTITETER", hvis denne funktionalitet er aktiveret.
+Hele koden til sensor smides ind i configuration.yaml eller bruger du separat fil til sensorer, så alle linjer undtagende den første (som starter med sensor). Eventuel "TJEK KONFIGURATION" og derefter "GENSTART"! Alternativt kan man nøjes med "GENINDLÆS KOMMANDOLINJE ENTITETER", hvis denne funktionalitet er aktiveret.
 
 Ad 2:
 "Tilføj kort" til din brugergrænseflade/dashboard, og vælg apexcharts-card. Så kopier du koden ind vinduet til venstre, så skulle diagrammet komme til syne i højre vindue. Priserne er med tarif, abonnement og moms. Diagramet bruger grøn, gul og rød farve for at markere forskelle pris, hvor grøn er lavest og rød højest. Er man mere til et linjediagram, så skal linjen "type: column" ændres til "type: line". Beskrevet diagram ligner dette:
@@ -28,7 +28,7 @@ Den aktuelle pris med markering af prisintervaller i forskellige farver.
 
 ![image](https://user-images.githubusercontent.com/103023823/206850966-839c8d47-3994-4e18-aadd-fbddf7ee01e8.png)
 
-Der skal laves en sensor til kortet, og det er en template, som: https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/energinet%20aktuel%20pris%20sensor. Eventuel "TJEK KONFIGURATION" og derefter "GENSTART"! Alternativt kan man nøjes ned "GENINDLÆS TEMPLATE ENTITETER", hvis denne funktionalitet er aktiveret. Tilføj et Gauge-kortkonfiguration, og og smid yaml/koden ind i fra https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/energinet%20aktuel%20pris%20gauge
+Der skal laves en sensor til kortet, og det er en template, som: https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/energinet%20aktuel%20pris%20sensor. Eventuel "TJEK KONFIGURATION" og derefter "GENSTART"! Alternativt kan man nøjes med "GENINDLÆS TEMPLATE ENTITETER", hvis denne funktionalitet er aktiveret. Tilføj et Gauge-kortkonfiguration, og og smid yaml/koden ind i fra https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/energinet%20aktuel%20pris%20gauge
 
 Ad 4:
 Ønsker du en mere tekstuel fremstilling og indeholdende tarif og abonnement, som:
