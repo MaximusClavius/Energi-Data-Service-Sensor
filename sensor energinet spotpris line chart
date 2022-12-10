@@ -10,7 +10,7 @@ now:
   show: true
   label: Nu
 header:
-  title: Prognose på spotpriser (kr/kWh)
+  title: Energinets spotpriser (kr/kWh)
   show: true
 experimental:
   color_threshold: true
@@ -19,22 +19,27 @@ series:
     type: line
     stroke_width: 2
     opacity: 0.7
-    float_precision: 2
     data_generator: |
-      const tarif = 1.20289;
-      const abonnement = 0.076;
+      const tariflav = 1.20289;
+      const tarifspids = 1.73479;
+      const afgift = 0.076;
+      var tarif, hour;
       var data = entity.attributes.records.map((start, index) => {
-        return [new Date(start["HourDK"]).getTime(), (entity.attributes.records[index]["SpotPriceDKK"] / 1000 + tarif + abonnement) * 1.25];
+        hour = parseInt(start["HourDK"].slice(11, 13));
+        tarif = tariflav;
+        if (hour >= 17 && hour < 20)
+            tarif = tarifspids;
+        return [new Date(start["HourDK"]).getTime(), (entity.attributes.records[index]["SpotPriceDKK"] / 1000 + tarif + afgift) * 1.25];
       });
       return data;
     color_threshold:
       - value: 0
         color: green
-      - value: 1
+      - value: 2
         color: yellow
-      - value: 1.9
+      - value: 3.5
         color: orange
-      - value: 2.8
+      - value: 5
         color: red
 yaxis:
   - min: 0
