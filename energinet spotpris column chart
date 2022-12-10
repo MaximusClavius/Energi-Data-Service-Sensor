@@ -18,10 +18,10 @@ series:
     type: column
     opacity: 0.7
     data_generator: |
-      const tarif = 0.0;
-      const afgift = 0.0;
+      const tarif = 1.20289;
+      const afgift = 0.076;
       var data = entity.attributes.records.map((start, index) => {
-        return [new Date(start["HourDK"]).getTime(), entity.attributes.records[index]["SpotPriceDKK"] / 1000 * 1.25 + tarif + afgift];
+        return [new Date(start["HourDK"]).getTime(), (entity.attributes.records[index]["SpotPriceDKK"] / 1000 + tarif + afgift) * 1.25];
       });
       return data;
     color_threshold:
