@@ -28,8 +28,8 @@ Den aktuelle pris med markering af prisintervaller i forskellige farver.
 
 ![image](https://user-images.githubusercontent.com/103023823/206850966-839c8d47-3994-4e18-aadd-fbddf7ee01e8.png)
 
-Der skal lave en sensor til kortet, og det er en template, som: https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/energinet%20aktuel%20pris%20sensor
-Tilføj et Gauge-kortkonfiguration, og og smid yaml/koden ind i fra https
+Der skal laves en sensor til kortet, og det er en template, som: https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/energinet%20aktuel%20pris%20sensor
+Tilføj et Gauge-kortkonfiguration, og og smid yaml/koden ind i fra https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/energinet%20aktuel%20pris%20gauge
 
 Ad 4:
 Ønsker du en mere tekstuel fremstilling og indeholdende tarif og abonnement, som:
