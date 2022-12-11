@@ -1,15 +1,5 @@
 - platform: template
   sensors:
-    fetch_spotprices_status:
-      friendly_name: "Status on fetch spotprices from Energinet"
-      value_template: >-
-        {%- set last_record = states.sensor.energinet_spotpris_dk1.attributes.total - 1 %}
-        {%- set isUpdated = (states.sensor.energinet_spotpris_dk1.attributes.records[last_record]['HourDK'] | as_timestamp | timestamp_custom("%Y-%m-%d", True) | as_timestamp) > (now().strftime("%Y-%m-%d") | as_timestamp) %}
-        {% if isUpdated %}Up-to-date{% else %}Waiting for update{% endif %}
-      icon_template: mdi:update
-
-- platform: template
-  sensors:
     current_tariff_fee:
       friendly_name: "Current tariff and fees for power price"
       value_template: >-
@@ -21,17 +11,55 @@
               "elafgift_fuld": 0.723,
               "elafgift_nedsat": 0.008,
               "nettarif_c_time_lavlast": 0.3676,
+              "nettarif_c_time_hoejlast": 0.0,
               "nettarif_c_time_spidslast": 0.8995,
+              "nettarif_c_time_vinter_lavlast_2023": 0.1212,
+              "nettarif_c_time_vinter_hoejlast_2023": 0.3635,
+              "nettarif_c_time_vinter_spidslast_2023": 1.0905,
+              "nettarif_c_time_sommer_lavlast_2023": 0.1212,
+              "nettarif_c_time_sommer_hoejlast_2023": 0.1818,
+              "nettarif_c_time_sommer_spidslast_2023": 0.4726,
               "abonnement_net": 0.036,
               "spotpristillaeg": 0.04,
               "eltillaeg_ellev": 0.00,
               "abonnement_ellev": 0.00
         } %}
         {% set subscription = s.abonnement_net + s.spotpristillaeg + s.eltillaeg_ellev + s.abonnement_ellev %}
-        {% if now().hour >=18 and now().hour <20 %}
-          {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_spidslast %}
+        {% set now = now() %}
+        {% if (now.year == 2023 and now.month < 3) or now.year < 2023 %}
+          {# før marts 2023 - gammel prisstruktur #}
+          {% if now.hour >= 17 and now.hour < 20 %}
+            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_spidslast %}
+          {% else %}
+            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_lavlast %}
+          {% endif %}
         {% else %}
-          {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.elafgift_fuld + s.nettarif_c_time_lavlast %}
+          {# efter 1. marts 2023 - ny prisstruktur #}
+          {% if now.month >= 4 and now.month <= 9 %}
+            {# Sommer 2023 #}
+            {% if now.hour < 6 %}
+              {# lavlast #}
+              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_sommer_lavlast_2023 %}
+            {% elif now.hour >= 17 and now.hour <= 20 %}
+              {# spidslast #}
+              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_sommer_spidslast_2023 %}
+            {% else %}
+              {# hoejlast #}
+              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_sommer_hoejlast_2023 %}
+            {% endif %}
+          {% else %}
+            {# Vinter 2023 #}
+            {% if now.hour < 6 %}
+              {# lavlast #}
+              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_vinter_lavlast_2023 %}
+            {% elif now.hour >= 17 and now.hour <= 20 %}
+              {# spidslast #}
+              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_vinter_spidslast_2023 %}
+            {% else %}
+              {# hoejlast #}
+              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + s.elafgift_fuld + s.nettarif_c_time_vinter_hoejlast_2023 %}
+            {% endif %}
+          {% endif %}
         {% endif %}
         {{ tariff + subscription }}
       icon_template: mdi:cash
