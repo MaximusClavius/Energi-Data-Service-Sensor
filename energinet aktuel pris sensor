@@ -27,7 +27,7 @@
         } %}
         {# varmepumpe = true/false, altid med små bogstaver #}
         {% set elafgift = s.elafgift_fuld %}
-        {% if s.varmepumpe and (states.sensor.eloverblik_energy_total_year.state | float) > 4000 %}
+        {% if s.varmepumpe and (states('sensor.eloverblik_energy_total_year') | float) > 4000 %}
           {% set elafgift = s.elafgift_nedsat %}
         {% endif %}
         {% set subscription = s.abonnement_net + s.spotpristillaeg + s.eltillaeg_ellev + s.abonnement_ellev %}
