@@ -23,7 +23,7 @@
               "spotpristillaeg": 0.04,
               "eltillaeg_ellev": 0.00,
               "abonnement_ellev": 0.00,
-              "varmepumpe": true,
+              "varmepumpe": false,
         } %}
         {# varmepumpe = true/false, altid med små bogstaver #}
         {% set elafgift = s.elafgift_fuld %}
