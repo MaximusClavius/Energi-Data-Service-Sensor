@@ -1,88 +1,60 @@
 - platform: template
   sensors:
-    current_tariff_fee:
+    current_tariff_fee_2023:
       friendly_name: "Current tariff and fees for power price from Vores Elnet"
       value_template: >-
         {% set s = {
-              "trans_nettarif": 0.049,
-              "systemtarif": 0.061,
-              "balancetarif_forbrug": 0.00229,
-              "pso_tarif": 0.00,
-              "elafgift_fuld": 0.723,
-              "elafgift_nedsat": 0.008,
-              "nettarif_c_time_lavlast": 0.3676,
-              "nettarif_c_time_hoejlast": 0.0,
-              "nettarif_c_time_spidslast": 0.8995,
-              "nettarif_c_time_vinter_lavlast_2023": 0.1212,
-              "nettarif_c_time_vinter_hoejlast_2023": 0.3635,
-              "nettarif_c_time_vinter_spidslast_2023": 1.0905,
-              "nettarif_c_time_sommer_lavlast_2023": 0.1212,
-              "nettarif_c_time_sommer_hoejlast_2023": 0.1818,
-              "nettarif_c_time_sommer_spidslast_2023": 0.4726,
-              "abonnement_net": 0.036,
-              "spotpristillaeg": 0.04,
-              "eltillaeg_ellev": 0.00,
-              "abonnement_ellev": 0.00,
-              "varmepumpe": false,
+            "trans_nettarif": 0.049,
+            "systemtarif": 0.061,
+            "balancetarif_forbrug": 0.00229,
+            "pso_tarif": 0.00,
+            "elafgift_fuld": 0.723,
+            "elafgift_nedsat": 0.008,
+            "nettarif_c_time_vinter_lavlast_2023": 0.1212,
+            "nettarif_c_time_vinter_hoejlast_2023": 0.3635,
+            "nettarif_c_time_vinter_spidslast_2023": 1.0905,
+            "nettarif_c_time_sommer_lavlast_2023": 0.1212,
+            "nettarif_c_time_sommer_hoejlast_2023": 0.1818,
+            "nettarif_c_time_sommer_spidslast_2023": 0.4726,
+            "abonnement_net": 0.036,
+            "spotpristillaeg": 0.04,
+            "eltillaeg_ellev": 0.00,
+            "abonnement_ellev": 0.00,
+            "varmepumpe": false,
         } %}
-        {# varmepumpe = true/false, altid med små bogstaver #}
+        {# varmepumpe = true/false, altid med små bogstaver og pr. måned #}
         {% set elafgift = s.elafgift_fuld %}
-        {% if s.varmepumpe and (states('sensor.eloverblik_energy_total_year') | float(4000.1)) > 4000 %}
+        {% if s.varmepumpe and (states('sensor.accumulate_month') | float(334.1)) > 334 %}
           {% set elafgift = s.elafgift_nedsat %}
         {% endif %}
         {% set subscription = s.abonnement_net + s.spotpristillaeg + s.eltillaeg_ellev + s.abonnement_ellev %}
         {% set now = now() %}
-        {% if (now.year == 2023 and now.month < 3) or now.year < 2023 %}
-          {# før marts 2023 - gammel prisstruktur #}
-          {% if now.hour >= 17 and now.hour < 20 %}
-            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_spidslast %}
+        {# efter 1. januar 2023 - ny prisstruktur #}
+        {% if now.month >= 4 and now.month <= 9 %}
+          {# Sommer 2023 #}
+          {% if now.hour < 6 %}
+            {# lavlast #}
+            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_sommer_lavlast_2023 %}
+          {% elif now.hour >= 17 and now.hour <= 20 %}
+            {# spidslast #}
+            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_sommer_spidslast_2023 %}
           {% else %}
-            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_lavlast %}
+            {# hoejlast #}
+            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_sommer_hoejlast_2023 %}
           {% endif %}
         {% else %}
-          {# efter 1. marts 2023 - ny prisstruktur #}
-          {% if now.month >= 4 and now.month <= 9 %}
-            {# Sommer 2023 #}
-            {% if now.hour < 6 %}
-              {# lavlast #}
-              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_sommer_lavlast_2023 %}
-            {% elif now.hour >= 17 and now.hour <= 20 %}
-              {# spidslast #}
-              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_sommer_spidslast_2023 %}
-            {% else %}
-              {# hoejlast #}
-              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_sommer_hoejlast_2023 %}
-            {% endif %}
+          {# Vinter 2023 #}
+          {% if now.hour < 6 %}
+            {# lavlast #}
+            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_vinter_lavlast_2023 %}
+          {% elif now.hour >= 17 and now.hour <= 20 %}
+            {# spidslast #}
+            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_vinter_spidslast_2023 %}
           {% else %}
-            {# Vinter 2023 #}
-            {% if now.hour < 6 %}
-              {# lavlast #}
-              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_vinter_lavlast_2023 %}
-            {% elif now.hour >= 17 and now.hour <= 20 %}
-              {# spidslast #}
-              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_vinter_spidslast_2023 %}
-            {% else %}
-              {# hoejlast #}
-              {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_vinter_hoejlast_2023 %}
-            {% endif %}
+            {# hoejlast #}
+            {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_vinter_hoejlast_2023 %}
           {% endif %}
         {% endif %}
         {{ tariff + subscription }}
-      icon_template: mdi:cash
-      unit_of_measurement: kr/kWh
-
-- platform: template
-  sensors:
-    current_power_price:
-      friendly_name: "Current power price from Energinet"
-      value_template: >-
-        {% set subset = state_attr('sensor.energinet_spotpris_dk1', 'records') %} 
-        {% set now = now().strftime("%Y-%m-%d %H") | as_timestamp  %}
-        {% for dict_item in subset %}
-          {% set datetime = strptime(dict_item['HourDK'], "%Y-%m-%dT%H:%M:%S").timestamp() %}
-          {% if datetime == now %}
-            {{ '%.2f' | format(((dict_item.SpotPriceDKK / 1000 + states('sensor.current_tariff_fee') | float) * 1.25) | float) }}
-          {% endif -%}
-        {% endfor %}
       icon_template: mdi:cash
       unit_of_measurement: kr/kWh
