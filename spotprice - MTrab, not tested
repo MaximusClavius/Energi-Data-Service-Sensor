@@ -1,14 +1,56 @@
-{% if (state_attr('sensor.energi_data_service', 'tomorrow_valid')) %}
-  {% set subset = ((state_attr('sensor.energi_data_service', 'raw_today') + state_attr('sensor.energi_data_service', 'raw_tomorrow' )) | sort(attribute='price')) %}
-{% else %}
-  {% set subset = (state_attr('sensor.energi_data_service', 'raw_today') | sort(attribute='price')) %}
+{% set s = {
+    "trans_nettarif": 0.058,
+    "systemtarif": 0.054,
+    "balancetarif_forbrug": 0,
+    "pso_tarif": 0.00,
+    "elafgift_fuld": 0.723,
+    "elafgift_nedsat": 0.008,
+    "nettarif_c_time_vinter_lavlast_2023": 0.1212,
+    "nettarif_c_time_vinter_hoejlast_2023": 0.3635,
+    "nettarif_c_time_vinter_spidslast_2023": 1.0905,
+    "nettarif_c_time_sommer_lavlast_2023": 0.1212,
+    "nettarif_c_time_sommer_hoejlast_2023": 0.1818,
+    "nettarif_c_time_sommer_spidslast_2023": 0.4726,
+    "abonnement_net": 0.036,
+    "spotpristillaeg": 0.04,
+    "eltillaeg_ellev": 0.00,
+    "abonnement_ellev": 0.00,
+    "varmepumpe": false,
+} %}
+{# varmepumpe = true/false, altid med små bogstaver og pr. måned #}
+{% set now = now() %}
+{% set elafgift = s.elafgift_fuld %}
+{% if now.month <= 6 %}
+  {% set elafgift = s.elafgift_nedsat %}
 {% endif %}
-{% set ns = namespace(count = 0) %}
-{% set now = now().timestamp() %}
-De billigste timer i nærmeste fremtid:
-{% for dict_item in subset %}
-  {% set datetime = strptime(dict_item['hour'], "%Y-%m-%dT%H:%M:%S").timestamp() %}
-  {% if datetime > now and ns.count < 3 %}
-    {% set ns.count = ns.count + 1 %} <ha-icon icon="mdi:clock-check"></ha-icon> {{ ns.count }}. Tidspunkt: {{ as_timestamp(dict_item.hour) | timestamp_custom('%d-%m-%Y %H:%M') }}, Pris: {{ '%.2f' | format(dict_item.price | float) }}
+{% if s.varmepumpe and (states('sensor.accumulate_month') | float(334.1)) > 334 %}
+  {% set elafgift = s.elafgift_nedsat %}
+{% endif %}
+{% set subscription = s.abonnement_net + s.spotpristillaeg + s.eltillaeg_ellev + s.abonnement_ellev %}
+{# efter 1. januar 2023 - ny prisstruktur #}
+{% if now.month >= 4 and now.month <= 9 %}
+  {# Sommer 2023 #}
+  {% if now.hour < 6 %}
+    {# lavlast #}
+    {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_sommer_lavlast_2023 %}
+  {% elif now.hour >= 17 and now.hour <= 20 %}
+    {# spidslast #}
+    {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_sommer_spidslast_2023 %}
+  {% else %}
+    {# hoejlast #}
+    {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_sommer_hoejlast_2023 %}
   {% endif %}
-{% endfor %}
+{% else %}
+  {# Vinter 2023 #}
+  {% if now.hour < 6 %}
+    {# lavlast #}
+    {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_vinter_lavlast_2023 %}
+  {% elif now.hour >= 17 and now.hour <= 20 %}
+    {# spidslast #}
+    {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_vinter_spidslast_2023 %}
+  {% else %}
+    {# hoejlast #}
+    {% set tariff = s.trans_nettarif + s.systemtarif + s.balancetarif_forbrug + s.pso_tarif + elafgift + s.nettarif_c_time_vinter_hoejlast_2023 %}
+  {% endif %}
+{% endif %}
+{{ tariff + subscription }}
