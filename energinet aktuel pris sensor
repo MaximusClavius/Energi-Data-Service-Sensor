@@ -1,12 +1,12 @@
 - platform: template
   sensors:
-    current_tariff_fee_2023:
+    current_tariff_fee:
       friendly_name: "Current tariff and fees for power price from Vores Elnet"
       value_template: >-
         {% set s = {
-            "trans_nettarif": 0.049,
-            "systemtarif": 0.061,
-            "balancetarif_forbrug": 0.00229,
+            "trans_nettarif": 0.058,
+            "systemtarif": 0.054,
+            "balancetarif_forbrug": 0,
             "pso_tarif": 0.00,
             "elafgift_fuld": 0.723,
             "elafgift_nedsat": 0.008,
@@ -23,12 +23,15 @@
             "varmepumpe": false,
         } %}
         {# varmepumpe = true/false, altid med små bogstaver og pr. måned #}
+        {% set now = now() %}
         {% set elafgift = s.elafgift_fuld %}
+        {% if now.month <= 6 %}
+          {% set elafgift = s.elafgift_nedsat %}
+        {% endif %}
         {% if s.varmepumpe and (states('sensor.accumulate_month') | float(334.1)) > 334 %}
           {% set elafgift = s.elafgift_nedsat %}
         {% endif %}
         {% set subscription = s.abonnement_net + s.spotpristillaeg + s.eltillaeg_ellev + s.abonnement_ellev %}
-        {% set now = now() %}
         {# efter 1. januar 2023 - ny prisstruktur #}
         {% if now.month >= 4 and now.month <= 9 %}
           {# Sommer 2023 #}
