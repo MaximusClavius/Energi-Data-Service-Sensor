@@ -36,3 +36,5 @@ Ad 4:
 ![image](https://user-images.githubusercontent.com/103023823/189045731-00e8d17b-dbb0-4f1b-ad4d-960e3adfaa0e.png)
 
 Tilføj et Markdown-kortkonfiguration, og smid yaml/koden ind i fra https://github.com/MaximusClavius/Energi-Data-Service-Sensor/blob/main/spotprice%20in%20near%20future. Ønsker du flere eller mindre end 3 priser, så skal du trylle med "ns.count < 3".
+
+<a href="https://www.paypal.com/donate/?hosted_button_id=NNUF56TVFMJXY"><img src="https://www.paypalobjects.com/da_DK/DK/i/btn/btn_donateCC_LG.gif" alt="Doner en skræv"></a>
