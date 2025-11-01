@@ -1,4 +1,4 @@
-# Der er løbet meget vand i åen siden. I dag kan man hente tariffer og afgifter hos energi-net, så hvordan man beregner den reelle pris er blevt langt mindre besværlig og vedligeholdelsesfrit.
+# Der er løbet meget vand i åen siden. I dag kan man hente tariffer og afgifter hos energi-net, så hvordan man beregner den reelle pris er blevet langt mindre besværlig og vedligeholdelsesfrit.
 # Energi-Data-Service-Sensor
 
 Der findes en løsning lavet af Malene Trab i Python til installation i HACS, https://github.com/MTrab/energidataservice
